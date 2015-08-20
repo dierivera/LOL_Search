@@ -51,25 +51,6 @@
 		<div id="userInformationDiv" class="item item-avatar">
 		</div>
 	</div>
-	
-	<!--div class="list card">
-		<div class="item item-text-wrap">
-			<i class="icon ion-person"></i> 
-			<b>Ranked Solo Queue</b>
-		</div>
-		<div class = "row">
-			<div id="imagenLigaYNombre" class="item item-image col col-50">
-				 <img src="res/Leagues/platinumII.png" style="width: 50%; height: 50%">
-				<p><b>PLATINUM II</b></p>
-			</div>	
-			<div id="InformaciondelUsuario" class="item item-image col col-50">
-				<p>&nbsp;</p>
-				<p>UDYRS TEMPLARS</p>
-				<p>LEAGUE POINTS: 34</p>
-				<p>W:27 L:18</p>
-			</div>	
-		</div>
-	</div-->
 
 	<div id="soloQueue" class="list card">
 	</div>
@@ -91,18 +72,9 @@
 		
 	
 	<!-- Muestra el current Game -->
-	<div id= "game">
-		<div id = "gameInfo">
+	<div id= "currentGame" class="list card" >
+		<div id = "gameInfo" class="item item-text-wrap">
 			<!-- Aqui se muestra si es ranked normal aram y el mapa -->
-		</div>
-		<div id = "BlueTeam">
-			<!-- Aqui se muestra los 5 personajes del lado azul -->	
-			<!-- Mostrar Bans del lado azul -->	
-		</div>
-		
-		<div id = "RedTeam">
-			<!-- Mostrar Bans del lado rojo -->	
-			<!-- Aqui se muestra los 5 personajes del lado rojo -->	
 		</div>
 	</div>
 
@@ -142,14 +114,146 @@
 			{"Name":"barrier","Value":21}
 		];
 		
+		var champions = [
+			{"Value":35,   "Name": "Shaco"},     
+			{"Value":36,   "Name": "DrMundo"},     
+			{"Value":33,   "Name": "Rammus"},     
+			{"Value":34,   "Name": "Anivia"},     
+			{"Value":39,   "Name": "Irelia"},     
+			{"Value":157,  "Name":  "Yasuo"},     
+			{"Value":37,   "Name": "Sona"},     
+			{"Value":38,   "Name": "Kassadin"},     
+			{"Value":154,  "Name":  "Zac"},     
+			{"Value":150,  "Name":  "Gnar"},     
+			{"Value":43,   "Name": "Karma"},     
+			{"Value":42,   "Name": "Corki"},     
+			{"Value":41,   "Name": "Gangplank"},     
+			{"Value":40,   "Name": "Janna"},     
+			{"Value":201,  "Name":  "Braum"},     
+			{"Value":22,   "Name": "Ashe"},     
+			{"Value":23,   "Name": "Tryndamere"},     
+			{"Value":24,   "Name": "Jax"},     
+			{"Value":25,   "Name": "Morgana"},     
+			{"Value":26,   "Name": "Zilean"},     
+			{"Value":27,   "Name": "Singed"},     
+			{"Value":28,   "Name": "Evelynn"},     
+			{"Value":29,   "Name": "Twitch"},     
+			{"Value":3,    "Name":"Galio"},     
+			{"Value":161,  "Name":  "Velkoz"},     
+			{"Value":2,    "Name":"Olaf"},     
+			{"Value":1,    "Name":"Annie"},     
+			{"Value":7,    "Name":"Leblanc"},     
+			{"Value":30,   "Name": "Karthus"},     
+			{"Value":6,    "Name":"Urgot"},     
+			{"Value":32,   "Name": "Amumu"},     
+			{"Value":5,    "Name":"XinZhao"},     
+			{"Value":31,   "Name": "Chogath"},     
+			{"Value":4,    "Name":"TwistedFate"},     
+			{"Value":9,    "Name":"FiddleSticks"},     
+			{"Value":8,    "Name":"Vladimir"},     
+			{"Value":19,   "Name": "Warwick"},     
+			{"Value":17,   "Name": "Teemo"},     
+			{"Value":18,   "Name": "Tristana"},     
+			{"Value":15,   "Name": "Sivir"},     
+			{"Value":16,   "Name": "Soraka"},     
+			{"Value":13,   "Name": "Ryze"},     
+			{"Value":14,   "Name": "Sion"},     
+			{"Value":11,   "Name": "MasterYi"},     
+			{"Value":12,   "Name": "Alistar"},     
+			{"Value":21,   "Name": "MissFortune"},     
+			{"Value":20,   "Name": "Nunu"},     
+			{"Value":107,  "Name":  "Rengar"},     
+			{"Value":106,  "Name":  "Volibear"},     
+			{"Value":105,  "Name":  "Fizz"},     
+			{"Value":104,  "Name":  "Graves"},     
+			{"Value":103,  "Name":  "Ahri"},     
+			{"Value":99,   "Name": "Lux"},     
+			{"Value":102,  "Name":  "Shyvana"},     
+			{"Value":101,  "Name":  "Xerath"},     
+			{"Value":412,  "Name":  "Thresh"},     
+			{"Value":98,   "Name": "Shen"},     
+			{"Value":222,  "Name":  "Jinx"},     
+			{"Value":96,   "Name": "KogMaw"},     
+			{"Value":223,  "Name":  "TahmKench"},     
+			{"Value":92,   "Name": "Riven"},     
+			{"Value":91,   "Name": "Talon"},     
+			{"Value":90,   "Name": "Malzahar"},     
+			{"Value":429,  "Name":  "Kalista"},     
+			{"Value":10,   "Name": "Kayle"},     
+			{"Value":421,  "Name":  "RekSai"},     
+			{"Value":89,   "Name": "Leona"},     
+			{"Value":79,   "Name": "Gragas"},     
+			{"Value":117,  "Name":  "Lulu"},     
+			{"Value":114,  "Name":  "Fiora"},     
+			{"Value":78,   "Name": "Poppy"},     
+			{"Value":115,  "Name":  "Ziggs"},     
+			{"Value":77,   "Name": "Udyr"},     
+			{"Value":112,  "Name":  "Viktor"},     
+			{"Value":113,  "Name":  "Sejuani"},     
+			{"Value":110,  "Name":  "Varus"},     
+			{"Value":111,  "Name":  "Nautilus"},     
+			{"Value":119,  "Name":  "Draven"},     
+			{"Value":432,  "Name":  "Bard"},     
+			{"Value":245,  "Name":  "Ekko"},     
+			{"Value":82,   "Name": "Mordekaiser"},     
+			{"Value":83,   "Name": "Yorick"},     
+			{"Value":80,   "Name": "Pantheon"},     
+			{"Value":81,   "Name": "Ezreal"},     
+			{"Value":86,   "Name": "Garen"},     
+			{"Value":84,   "Name": "Akali"},     
+			{"Value":85,   "Name": "Kennen"},     
+			{"Value":67,   "Name": "Vayne"},     
+			{"Value":126,  "Name":  "Jayce"},     
+			{"Value":69,   "Name": "Cassiopeia"},     
+			{"Value":127,  "Name":  "Lissandra"},     
+			{"Value":68,   "Name": "Rumble"},     
+			{"Value":121,  "Name":  "Khazix"},     
+			{"Value":122,  "Name":  "Darius"},     
+			{"Value":120,  "Name":  "Hecarim"},     
+			{"Value":72,   "Name": "Skarner"},     
+			{"Value":236,  "Name":  "Lucian"},     
+			{"Value":74,   "Name": "Heimerdinger"},     
+			{"Value":75,   "Name": "Nasus"},     
+			{"Value":238,  "Name":  "Zed"},     
+			{"Value":76,   "Name": "Nidalee"},     
+			{"Value":134,  "Name":  "Syndra"},     
+			{"Value":133,  "Name":  "Quinn"},     
+			{"Value":59,   "Name": "JarvanIV"},     
+			{"Value":58,   "Name": "Renekton"},     
+			{"Value":57,   "Name": "Maokai"},     
+			{"Value":56,   "Name": "Nocturne"},     
+			{"Value":55,   "Name": "Katarina"},     
+			{"Value":64,   "Name": "LeeSin"},     
+			{"Value":62,   "Name": "MonkeyKing"},     
+			{"Value":63,   "Name": "Brand"},     
+			{"Value":268,  "Name":  "Azir"},     
+			{"Value":267,  "Name":  "Nami"},     
+			{"Value":60,   "Name": "Elise"},     
+			{"Value":131,  "Name":  "Diana"},     
+			{"Value":61,   "Name": "Orianna"},     
+			{"Value":266,  "Name":  "Aatrox"},     
+			{"Value":143,  "Name":  "Zyra"},     
+			{"Value":48,   "Name": "Trundle"},     
+			{"Value":45,   "Name": "Veigar"},     
+			{"Value":44,   "Name": "Taric"},     
+			{"Value":51,   "Name": "Caitlyn"},     
+			{"Value":53,   "Name": "Blitzcrank"},     
+			{"Value":54,   "Name": "Malphite"},     
+			{"Value":254,  "Name":  "Vi"},     
+			{"Value":50,   "Name": "Swain"}
+		];
+		
+		
+		
+				
 		var matchMaking = [
 			{"Name":"CUSTOM","Value":0},
 			{"Name":"NORMAL_3x3","Value":8},
-			{"Name":"NORMAL 5x5 BLIND PICK","Value":2},
+			{"Name":"NORMAL","Value":2},
 			{"Name":"NORMAL_5x5_DRAFT","Value":14},
-			{"Name":"RANKED SOLO/DUO 5x5","Value":4},
+			{"Name":"RANKED SOLO/DUO","Value":4},
 			{"Name":"RANKED_TEAM_3x3","Value":41},
-			{"Name":"RANKED_TEAM_5x5","Value":42},
+			{"Name":"RANKED TEAM","Value":42},
 			{"Name":"ODIN_5x5_BLIND","Value":16},
 			{"Name":"ODIN_5x5_DRAFT","Value":17},
 			{"Name":"BOT_ODIN_5x5","Value":25},
@@ -173,6 +277,10 @@
 			{"Name":"COUNTER_PICK","Value":310},
 			{"Name":"BILGEWATER_5x5","Value":313}
 		];
+		
+		
+		 
+   
 		
 		$(document).ready(function() {
 			$('#userContainer').hide(0);
@@ -238,6 +346,19 @@
 			return "";
 		}
 		
+		//returns the champion name by Id
+		function getChampionName (championId)
+		{
+			for (i = 0; i < champions.length;i++)
+			{
+				if (champions[i].Value == championId){
+					console.log (champions[i].Name);
+					return champions[i].Name;
+				}
+			}
+			return "";
+		}
+		
 		//returns the match type name
 		function getMatchType (matchId)
 		{
@@ -249,6 +370,18 @@
 				}
 			}
 			return "";
+		}
+		
+		function createPlayer(playerJsonObject)
+		{
+			var player =  {
+				championId : playerJsonObject.championId,
+				spell1Id : playerJsonObject.spell1Id,
+				spell2Id : playerJsonObject.spell2Id,
+				summonerName : playerJsonObject.summonerName,
+				teamId : playerJsonObject.teamId
+			};
+			return player;
 		}
 		
 		//Store the username and region inserted by user
@@ -333,8 +466,8 @@
 			//$('#userInformation').append('<h4><span class="label label-primary"> Ranked SoloQueue: ' + data[userId][0].name + data[userId][0].tier + data[userId][0].entries[0].division 	  + '</span> </h4>');
 			$('#soloQueue').append(soloqeue);
 			$('#teamRanked').append(teamqeue);
-			//$('#soloQueue').show();
-			//$('#teamRanked').show();
+			$('#soloQueue').show();
+			$('#teamRanked').show();
 		});
 		
 		//03 Gets the user's current game
@@ -342,16 +475,20 @@
 		//$.getJSON('https://lan.api.pvp.net/api/lol/lan/v2.2/match/189274524?api_key=c54efbf8-df0e-4f6e-bc65-e616754052bd' ,function(data) {
 			var mapName = getMapName(data.mapId);
 			var matchTypeName = getMatchType(data.gameQueueConfigId);
-			//var player01 = data[participants][0].summonerName;
+			var player01 = data['participants'][0].summonerName;
 			console.log(matchTypeName);
-			$('#gameInfo').html('<h4><span class="label label-primary">' + matchTypeName + '</span> <span class="badge">Map: ' + mapName + '</span> </h4>');
+			$('#gameInfo').html('<b>' + matchTypeName +' · '+ mapName + '</b>');
 			$('#gameInfo').show();
 			//userId = data[user].id;
+			//getChampionName(data['participants'][0].championId)
+			var i,j;
+			for (i=0,j= 5; i<5; i++,j++){
+				var row01 = '<div class="row"><div class="col col-50"><div class="item item-avatar"><img src="res/ChampionsSquare/'+getChampionName(data['participants'][i].championId)+'Square.png"><p>'+ data["participants"][i].summonerName +'</p></div></div><div class="col col-50"><div class="item item-avatar"><img src="res/ChampionsSquare/'+getChampionName(data["participants"][j].championId)+'Square.png"><p>'+ data["participants"][j].summonerName +'</p></div></div></div>';
+				$('#currentGame').append(row01);
+			}
+			$('#currentGame').show();
 			});
 		
-		
-			
-			
 		});//ends the done
 		
 		
