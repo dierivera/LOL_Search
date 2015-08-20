@@ -1,0 +1,380 @@
+<!DOCTYPE html>	
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="js/angular/angular.js"></script>
+	<link href="css/ionic.css" rel="stylesheet">
+	<link href="css/ionicons/css/ionicons.css" rel="stylesheet">
+	<script src="js/ionic.bundle.js"></script>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<title>League of Legends</title>	
+  </head>
+  <body>
+	
+	<!-- Titulo y Subtitulo del sitio-->
+	<div class="bar bar-header bar-positive has-tabs-top">
+    <h1 class="title">LOL Dashboard</h1>
+	</div>
+	<div class="bar bar-subheader bar-calm">
+		<h2 class="title">Is that a Rocket in your Pocket?</h2>
+	</div>
+	TEXT
+		<ul class="list">
+			<li class="item">
+				Hidden text
+			</li>
+		</ul>
+	<!-- Menu navegable inferior-->
+	<div class="tabs tabs-icon-top tabs-color-positive">
+	  <a class="tab-item"  href="index.html">
+		<i class="icon ion-home"></i>
+		Home
+	  </a>
+	  <a class="tab-item"  href="#">
+		<i class="icon ion-information-circled"></i>
+		About
+	  </a>
+	  <a class="tab-item"  href="#">
+		<i class="icon ion-gear-a"></i>
+		Settings
+	  </a>
+	</div>
+	
+	
+	<!-- Recibe los datos del usuario -->
+	<div id="userContainer" class="list card">
+		<div id="userInformationDiv" class="item item-avatar">
+		</div>
+	</div>
+	
+	<!--div class="list card">
+		<div class="item item-text-wrap">
+			<i class="icon ion-person"></i> 
+			<b>Ranked Solo Queue</b>
+		</div>
+		<div class = "row">
+			<div id="imagenLigaYNombre" class="item item-image col col-50">
+				 <img src="res/Leagues/platinumII.png" style="width: 50%; height: 50%">
+				<p><b>PLATINUM II</b></p>
+			</div>	
+			<div id="InformaciondelUsuario" class="item item-image col col-50">
+				<p>&nbsp;</p>
+				<p>UDYRS TEMPLARS</p>
+				<p>LEAGUE POINTS: 34</p>
+				<p>W:27 L:18</p>
+			</div>	
+		</div>
+	</div-->
+
+	<div id="soloQueue" class="list card">
+	</div>
+	
+	<div id="teamRanked" class="list card">
+	</div>
+	
+
+	
+	
+	<!--div class="list">
+		<table class="table">
+			<tr class="thumbnail">
+			<td id= "soloQueue" class="list-group"></td>
+			<td id= "teamRanked" class="list-group"></td>
+			</tr>
+		</table>
+	</div-->	
+		
+	
+	<!-- Muestra el current Game -->
+	<div id= "game">
+		<div id = "gameInfo">
+			<!-- Aqui se muestra si es ranked normal aram y el mapa -->
+		</div>
+		<div id = "BlueTeam">
+			<!-- Aqui se muestra los 5 personajes del lado azul -->	
+			<!-- Mostrar Bans del lado azul -->	
+		</div>
+		
+		<div id = "RedTeam">
+			<!-- Mostrar Bans del lado rojo -->	
+			<!-- Aqui se muestra los 5 personajes del lado rojo -->	
+		</div>
+	</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+	<script>
+	
+		//Priority ladder, ranked
+		
+		var rankedPrior = [
+			{"Name":"BRONZE","Value":1},
+			{"Name":"SILVER","Value":2},
+			{"Name":"GOLD","Value":3},
+			{"Name":"PLATINUM","Value":4},
+			{"Name":"DIAMOND","Value":5},
+			{"Name":"MASTER","Value":6},
+			{"Name":"CHALLENGER","Value":7}
+		];
+		
+		var maps = [
+			{"Name":"The Proving Grounds","Value":3},
+			{"Name":"The Crystal Scar","Value":8},	
+			{"Name":"Twisted Treeline","Value":10},	
+			{"Name":"Summoner's Rift","Value":11},
+			{"Name":"Howling Abyss","Value":12},
+			{"Name":"Butcher's Bridge", "Value":14}
+		];
+		
+		var spells = [
+			{"Name":"exhaust","Value":3},
+			{"Name":"flash","Value":4},
+			{"Name":"heal","Value":7},
+			{"Name":"smite","Value":11},
+			{"Name":"teleport","Value":12},
+			{"Name":"barrier","Value":21}
+		];
+		
+		var matchMaking = [
+			{"Name":"CUSTOM","Value":0},
+			{"Name":"NORMAL_3x3","Value":8},
+			{"Name":"NORMAL 5x5 BLIND PICK","Value":2},
+			{"Name":"NORMAL_5x5_DRAFT","Value":14},
+			{"Name":"RANKED SOLO/DUO 5x5","Value":4},
+			{"Name":"RANKED_TEAM_3x3","Value":41},
+			{"Name":"RANKED_TEAM_5x5","Value":42},
+			{"Name":"ODIN_5x5_BLIND","Value":16},
+			{"Name":"ODIN_5x5_DRAFT","Value":17},
+			{"Name":"BOT_ODIN_5x5","Value":25},
+			{"Name":"BOT_5x5_INTRO","Value":31},
+			{"Name":"BOT_5x5_BEGINNER","Value":32},
+			{"Name":"BOT_5x5_INTERMEDIATE","Value":33},
+			{"Name":"BOT_TT_3x3","Value":52},
+			{"Name":"GROUP_FINDER_5x5","Value":61},
+			{"Name":"ARAM_5x5","Value":65},
+			{"Name":"ONEFORALL_5x5","Value":70},
+			{"Name":"SR_6x6","Value":75},
+			{"Name":"URF_5x5","Value":76},
+			{"Name":"BOT_URF_5x5","Value":83},
+			{"Name":"NIGHTMARE_BOT_5x5_RANK1","Value":91},
+			{"Name":"NIGHTMARE_BOT_5x5_RANK2","Value":92},
+			{"Name":"NIGHTMARE_BOT_5x5_RANK5","Value":93},
+			{"Name":"ASCENSION_5x5","Value":96},
+			{"Name":"HEXAKILL","Value":98},
+			{"Name":"BILGEWATER_ARAM_5x5","Value":100},
+			{"Name":"KING_PORO_5x5","Value":300},
+			{"Name":"COUNTER_PICK","Value":310},
+			{"Name":"BILGEWATER_5x5","Value":313}
+		];
+		
+		$(document).ready(function() {
+			$('#userContainer').hide(0);
+			$('#gameInfo').hide(0);
+			$('#soloQueue').hide(0);
+			$('#teamRanked').hide(0);
+			
+			});
+		//reads data from the url
+		var getUrlParameter = function getUrlParameter(sParam) {
+			var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+				sURLVariables = sPageURL.split('&'),
+				sParameterName,
+				i;
+
+			for (i = 0; i < sURLVariables.length; i++) {
+				sParameterName = sURLVariables[i].split('=');
+
+				if (sParameterName[0] === sParam) {
+					return sParameterName[1] === undefined ? true : sParameterName[1];
+				}
+			}
+		};
+		
+		//Changes the name of the Region to be displayed more user friendly
+		function changeRegion()
+		{
+		if (region == "NA")
+				new_region = "North America";
+		if (region == "LAN")
+				new_region = "Latin American North";
+		if (region == "LAS")
+				new_region = "Latin American South";
+		if (region == "EUW")
+				new_region = "Europe West";
+		return new_region;
+		}
+		
+		//Used to satisfy the current game api query
+		function currentPlatform()
+		{
+		if (region == "NA")
+				platform = "NA1";
+		if (region == "LAN")
+				platform = "LA1";
+		if (region == "LAS")
+				platform = "LA2";
+		if (region == "EUW")
+				platform = "EUW1";
+		return platform;
+		}
+		
+		//returns the map name
+		function getMapName (mapId)
+		{
+			for (i = 0; i < maps.length;i++)
+			{
+				if (maps[i].Value == mapId){
+					console.log (maps[i].Name);
+					return maps[i].Name;
+				}
+			}
+			return "";
+		}
+		
+		//returns the match type name
+		function getMatchType (matchId)
+		{
+			for (i = 0; i < matchMaking.length;i++)
+			{
+				if (matchMaking[i].Value == matchId){
+					console.log (matchMaking[i].Name);
+					return matchMaking[i].Name;
+				}
+			}
+			return "";
+		}
+		
+		//Store the username and region inserted by user
+		var APIKEY = '?api_key=c54efbf8-df0e-4f6e-bc65-e616754052bd';
+		var user = getUrlParameter('userName');
+		var userId = '';
+		var region = getUrlParameter('region');
+		var new_region = changeRegion();
+		//Used in current game information
+		var platform = currentPlatform();
+		
+		//Ranked information variables
+		var teamTierValue = 0;
+		var teamTier = "";
+		var teamDivision = 0;
+		var teamKey = 0;
+
+
+		
+		//01 Gets the user data from the Riot API
+	    $.getJSON('https://' + region + '.api.pvp.net/api/lol/' + region.toLowerCase() + '/v1.4/summoner/by-name/' + user + APIKEY ,function(data) {
+			console.log(data[user].name);
+			//console.log(userId);
+			$('#userInformationDiv').html('<img src=http://avatar.leagueoflegends.com/'+ region + "/" + data[user].name.replace(/ /g,'%20') + '.png><h2>' + data[user].name+'</h2>' + '<p>' + new_region + '<span class="badge">Level ' + data[user].summonerLevel + '</span>' + '</p>');			
+			//$('#userInformation').html('<h4><span class="label label-primary">' + new_region + '</span> <span class="badge">Level ' + data[user].summonerLevel + '</span> </h4>');
+			$('#userContainer').show();
+			userId = data[user].id;
+		}).done(function() { //espera a que termine para iniciar el 02.
+			
+		//02 Gets the user's league information
+		$.getJSON('https://'+ region + '.api.pvp.net/api/lol/' + region.toLowerCase() + '/v2.5/league/by-summoner/' + userId + '/entry' + APIKEY ,function(data) {
+			for (var key in data[userId])
+			{
+				//console.log(key); //este itera por la cantidad de ranked teams + 1(soloqeue)
+				if (key!=0){
+					var tier = data[userId][key].tier;
+					var division = data[userId][key].entries[0].division;
+					var teamName = data[userId][key].entries[0].playerOrTeamName;
+					if (!teamDivision){
+						teamTier = tier;
+						teamDivision = division;
+						teamKey = key;
+					}
+					else{
+						for(var i=0;i<rankedPrior.length;i++){
+							if (rankedPrior[i].Name == tier)
+							{
+								if (teamDivision > division)
+								{
+									teamTier = tier;
+									teamDivision = division;
+									teamTierValue = i;
+									teamKey = key;
+								}
+							}
+							else //revisa si esta en una liga distinta
+							{
+								if (teamTierValue > i)
+									{}
+								else
+								{
+									teamTier = tier;
+									teamDivision = division;
+									teamTierValue = i;
+									teamKey = key;
+								}
+							}
+						}
+					}
+			   }				   
+			}
+			//console.log(teamName + " - " + teamTier + " " + teamDivision );
+			//var soloqeue = '<li class="list-group-item active">Ranked Solo Queue</li> <li class="list-group-item">' + data[userId][0].name + '</li><li class="list-group-item"> <img src=res/Leagues/' + data[userId][0].tier.toLowerCase() + data[userId][0].entries[0].division +'.png alt="soloRanked"> </li><li class="list-group-item">' + data[userId][0].tier + " " + data[userId][0].entries[0].division  + '</li><li  class="list-group-item"> League Points: ' + data[userId][0].entries[0].leaguePoints + '</li><li  class="list-group-item"> W: ' + data[userId][0].entries[0].wins + " L: " + data[userId][0].entries[0].losses;			
+			var soloqeue = '<div class="item item-text-wrap"><i class="icon ion-person"></i><b> Ranked SoloQueue</b>' + '</div><div class = "row"><div id="imagenLigaYNombre" class="item item-image col col-50"><img src=res/Leagues/' + data[userId][0].tier.toLowerCase()  +  data[userId][0].entries[0].division +'.png alt="soloRanked" style="width: 50%; height: 50%"><p><b>' + data[userId][0].tier + " " + data[userId][0].entries[0].division  + '</b></p></div><div id="InformaciondelUsuario" class="item item-image col col-50"><p>&nbsp;</p><p>'+ data[userId][0].name.toUpperCase().bold() + '</p><p>LEAGUE POINTS: ' + data[userId][0].entries[0].leaguePoints + '</p><p>W: ' + data[userId][0].entries[0].wins +  " L: " + data[userId][0].entries[0].losses + '</p></div></div>';
+			
+			
+			
+			
+			
+			var teamqeue = '<div class="item item-text-wrap"><i class="icon ion-ios-people"></i><b> Ranked Team</b>&nbsp;-&nbsp;'+ teamName.bold() + '</div><div class = "row"><div id="imagenLigaYNombre" class="item item-image col col-50"><img src=res/Leagues/' + teamTier.toLowerCase() +  teamDivision +'.png alt="teamRanked" style="width: 50%; height: 50%"><p><b>' + teamTier + " " +  teamDivision + '</b></p></div><div id="InformaciondelUsuario" class="item item-image col col-50"><p>&nbsp;</p><p>'+ data[userId][teamKey].name.toUpperCase().bold() + '</p><p>LEAGUE POINTS: ' + data[userId][teamKey].entries[0].leaguePoints + '</p><p>W: ' + data[userId][teamKey].entries[0].wins +  " L: " + data[userId][teamKey].entries[0].losses + '</p></div></div>';
+			//var teamqeue = '<li class="list-group-item active">Ranked Team - ' + teamName.bold() +'</li> <li class="list-group-item">' + data[userId][teamKey].name + '</li><li class="list-group-item"> <img src=res/Leagues/' + teamTier.toLowerCase() +  teamDivision +'.png alt="soloRanked"></li><li class="list-group-item">' + teamTier + " " +  teamDivision + '</li><li  class="list-group-item"> League Points: ' + data[userId][teamKey].entries[0].leaguePoints + '</li><li  class="list-group-item"> W: ' + data[userId][teamKey].entries[0].wins + " L: " + data[userId][teamKey].entries[0].losses;
+			//$('#userInformation').append('<h4><span class="label label-primary"> Ranked SoloQueue: ' + data[userId][0].name + data[userId][0].tier + data[userId][0].entries[0].division 	  + '</span> </h4>');
+			$('#soloQueue').append(soloqeue);
+			$('#teamRanked').append(teamqeue);
+			//$('#soloQueue').show();
+			//$('#teamRanked').show();
+		});
+		
+		//03 Gets the user's current game
+		$.getJSON('https://'+ region + '.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/' + platform  + '/' + userId + APIKEY ,function(data) {
+		//$.getJSON('https://lan.api.pvp.net/api/lol/lan/v2.2/match/189274524?api_key=c54efbf8-df0e-4f6e-bc65-e616754052bd' ,function(data) {
+			var mapName = getMapName(data.mapId);
+			var matchTypeName = getMatchType(data.gameQueueConfigId);
+			//var player01 = data[participants][0].summonerName;
+			console.log(matchTypeName);
+			$('#gameInfo').html('<h4><span class="label label-primary">' + new_region + '</span> <span class="badge">Map: ' + mapName + '</span> </h4>');
+			$('#gameInfo').show();
+			//userId = data[user].id;
+			});
+		
+		
+			
+			
+		});//ends the done
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+	</script>
+  </body>
+	
+</html>

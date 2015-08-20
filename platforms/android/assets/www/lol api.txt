@@ -1,0 +1,20 @@
+String developmentKey = "c54efbf8-df0e-4f6e-bc65-e616754052bd"
+?api_key=c54efbf8-df0e-4f6e-bc65-e616754052bd
+
+-- User Information by Username
+https://lan.api.pvp.net/api/lol/LAN/v1.4/summoner/by-name/jhsua?api_key=c54efbf8-df0e-4f6e-bc65-e616754052bd
+
+-- Users league information by Summoner Id
+https://na.api.pvp.net/api/lol/na/v2.5/league/by-summoner/417543/entry?api_key=c54efbf8-df0e-4f6e-bc65-e616754052bd
+
+-- Current Game by Summoner Id
+https://lan.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/LA1/417543?api_key=c54efbf8-df0e-4f6e-bc65-e616754052bd
+
+-- Recent Games by SummonerId
+https://lan.api.pvp.net/api/lol/LAN/v1.3/game/by-summoner/32447/recent?api_key=c54efbf8-df0e-4f6e-bc65-e616754052bd
+
+-- Match information by MatchId
+https://lan.api.pvp.net/api/lol/lan/v2.2/match/189274524?api_key=c54efbf8-df0e-4f6e-bc65-e616754052bd
+
+-- Match list by SummonerId
+https://lan.api.pvp.net/api/lol/lan/v2.2/matchlist/by-summoner/32447?api_key=c54efbf8-df0e-4f6e-bc65-e616754052bd

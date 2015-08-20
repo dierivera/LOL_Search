@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="js/angular/angular.js"></script>
+	<link href="css/ionic.css" rel="stylesheet">
+	<link href="css/ionicons/css/ionicons.css" rel="stylesheet">
+	<script src="js/ionic.bundle.js"></script>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<title>League of Legends</title>
+  </head>
+  <body>
+	<!-- Tabs de opciones de navegacion -->
+	<!--ul class="nav nav-pills">
+		<li role="presentation" class="active"><a href="#">Home</a></li>
+		<li role="presentation" class="disabled"><a href="#">UserName</a></li>
+		<li role="presentation"><a href="#">TOP Champions</a></li>
+		<li role="presentation"><a href="#">Contact</a></li>
+	</ul-->
+	
+	<!-- Titulo y Subtitulo del sitio-->
+	<div class="bar bar-header bar-positive has-tabs-top">
+    <h1 class="title">LOL Dashboard</h1>
+	</div>
+	<div class="bar bar-subheader bar-calm">
+		<h2 class="title">Welcome to the League of DRAAAVEN.</h2>
+	</div>
+	TEXT
+		<ul class="list">
+			<li class="item">
+				Hidden text
+			</li>
+		</ul>
+	<!-- Menu navegable inferior-->
+	<div class="tabs tabs-icon-top tabs-color-positive">
+	  <a class="tab-item active"">
+		<i class="icon ion-home"></i>
+		Home
+	  </a>
+	  <a class="tab-item">
+		<i class="icon ion-information-circled"></i>
+		About
+	  </a>
+	  <a class="tab-item">
+		<i class="icon ion-gear-a"></i>
+		Settings
+	  </a>
+	</div>
+	
+	
+		
+
+		
+	<div class="list list-inset">
+	  <label class="item item-input">
+		<i class="icon ion-search placeholder-icon"></i>
+		<input id="userName1" type="text" placeholder="Summoner Name">
+	  </label>
+	  
+	  <div class="list">
+	  <label class="item item-input item-select">
+		<div class="input-label">
+		  <i class="icon ion-ios-world-outline placeholder-icon"></i>
+		   Region
+		</div>
+		<select  onChange="changeRegion(this);return false">
+		  <option selected>Select Region</option>
+		  <option value="NA">NA</option>
+		  <option value="LAN"> LAN</option>
+		  <option value="LAS">LAS</option>
+		  <option value="EUW">EUW</option>
+		</select>
+	  </label>
+	</div>
+	</div>
+	
+	<button class="button button-block button-positive" onclick="submitSearch()">
+		Search
+	</button>
+
+	<!--img src="http://vignette1.wikia.nocookie.net/darkorbit/images/f/f5/League-of-legends-logo.jpg/revision/latest?cb=20120802083605" alt="LOL logo" width="20%" height="20%"-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+	<script>
+	var sendRegion;
+	function changeRegion(region)
+	{
+		sendRegion = region.value;
+	}
+	function submitSearch()
+	{
+		var userName = document.getElementById("userName1").value;
+		if (!sendRegion)
+			alert ('Select a Region please');
+		else
+		{
+			if (!userName)
+				alert ('Type an username please');
+			else
+				location.href='userInformation.html?userName='+ userName.replace(/ /g,'') + "&region=" + sendRegion;
+		}
+	}
+	</script>
+  </body>
+</html>
